@@ -12,7 +12,8 @@ This can be used for input into visualisation programs as described in
 
 # Installation
 
-!!PP echo windows : copy/download %CURZIP% to location of your choice.
+windows : download [the zip file](https://github.com/njamescouk/pbmGetProfile/archive/master.zip)
+ to a location of your choice.
 
 The [directory](.) tree looks like this:
 
@@ -85,9 +86,6 @@ yes, but I don't know where.
 # Building
 
 use `source\compile.bat`
-
-I advise against forking the github repo, it contains a lot of hard
-coded idiosyncracies specific to my work machine.
 
 # Acknowledgments
 
