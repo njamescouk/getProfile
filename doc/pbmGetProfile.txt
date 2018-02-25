@@ -1,0 +1,117 @@
+!!PP set /p var=% %EXE_VER%< nul
+% Nick James
+!!PP echo % %DATE%
+
+# Introduction
+
+This program treats it's image input as a half section of a vessel
+and outputs values of radius and height.
+
+This can be used for input into visualisation programs as described in
+"[Quantifying the Effects of Raising](raising.pdf)".
+
+# Installation
+
+!!PP echo windows : copy/download %CURZIP% to location of your choice.
+
+The [directory](.) tree looks like this:
+
+    ├───doc
+    ├───example
+    └───source
+        └───dependencies
+            ├───nickPbm
+            ├───parseCmdline
+            │   └───source
+            └───split_string
+
+Windows:
+The zip file contains documentation, executable files and supporting dlls
+plus source code.
+
++ doc has a copy of this page and raising.pdf
++ example *should* have everything you need to get 
+from a profile image to a table of radius and height: executing runEx.bat
+should produce a new can.csv.
++ source executing compile.bat *should* generate pbmGetProfile.exe
+from source and dependencies
+
+Linux : In addition I'm afraid you'll have port `source\compile.bat` to linux 
+and then compile. 
+
+# Synopsis
+~~~~~
+pbmgetprofile [-h | -v ] profile_pbm_file
+~~~~~
+
+options are:
+
++    -h          : this help
++    -v          : version
+
+# Action
+
+first use 
+
+    pngtopnm profile_file | pgmtopbm -plain > profile_pbm_file
+
+then 
+
+    pbmgetProfile profile_pbm_file.pbm > profile_file.csv
+
+output is written to stdout
+
+# Example
+
+From the example directory:
+
+!!PP type ..\example\makeEx.bat
+
+So if we start with this image as the profile of a raising:
+
+![](canProfile.shrunk.png)
+
+--------------------
+
+
+then this is the data produced:
+
+!!PP type ..\example\can.csv | sed  "s/^/    /;"
+
+# Bugs
+
+yes, but I don't know where.
+
+# Building
+
+use `source\compile.bat`
+
+I advise against forking the github repo, it contains a lot of hard
+coded idiosyncracies specific to my work machine.
+
+# Acknowledgments
+
+the imaging code is a gross hack of part of the netpbm library by 
+Jef Poskanzer et al
+
+~~~~
+** Copyright (C) 1988 by Jef Poskanzer.
+**
+** Permission to use, copy, modify, and distribute this software and its
+** documentation for any purpose and without fee is hereby granted, provided
+** that the above copyright notice appear in all copies and that both that
+** copyright notice and this permission notice appear in supporting
+** documentation.  This software is provided "as is" without express or
+** implied warranty.
+~~~~
+
+# Colophon
+
+<p>
+Produced with:
+</p>
+<pre>
+!!PP type makeDoc.bat | sed -n $p
+</pre>
+
+!!PP sDateTime
