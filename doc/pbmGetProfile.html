@@ -21,7 +21,7 @@
 <header>
 <h1 class="title">pbmGetProfile version 1.0</h1>
 <p class="author">Nick James</p>
-<p class="date">25/02/2018</p>
+<p class="date">26/02/2018</p>
 </header>
 <nav id="TOC">
 <ul>
@@ -72,7 +72,8 @@
 <p>output is written to stdout</p>
 <h1 id="example"><span class="header-section-number">5</span> Example</h1>
 <p>From the example directory:</p>
-<p>pngtopnm canProfile.png | pgmtopbm -plain &gt; can.pbm pbmgetProfile can.pbm &gt; can.csv</p>
+<pre><code>pngtopnm canProfile.png | pgmtopbm -plain &gt; can.pbm
+pbmgetProfile can.pbm &gt; can.csv</code></pre>
 <p>So if we start with this image as the profile of a raising:</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAM0AAAEsCAAAAABFuGgmAAAABGdBTUEAAYagMeiWXwAAAAJiS0dEAP+Hj8y/AAAACXBIWXMAAC4YAAAuGAEqqicgAAABFUlEQVR42u3PgQmAMBAEsIJ28A6l4HR2iYd7NNkg423imqNAemFjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2Njk17Y2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2KQXNjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjbphY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY1NemHzl83dw7OOis1s4qzIAAAAAAB8wQaxsCGD68l9LgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOC0wMi0yMlQxMDo0Mjo0OSswMDowMNzjw3oAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTgtMDItMjJUMTA6NTc6NTgrMDA6MDDgxGRoAAAAAElFTkSuQmCC" /></p>
 <hr />
@@ -1282,6 +1283,6 @@ Produced with:
 pp pbmGetProfile.txt | pandoc --self-contained --toc -N -c devDoc.css -s -t html5 -o pbmGetProfile.html
 
 </pre>
-<p>2018-02-25 13:53:17</p>
+<p>2018-02-26 00:40:24</p>
 </body>
 </html>
