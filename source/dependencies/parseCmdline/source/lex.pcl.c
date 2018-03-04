@@ -414,7 +414,7 @@ bool lastSeenWasFlag = false;
 std::string lastFlag;
 bool seenMinus = false;
 
-std::map<std::string, OptionSpec> cmdlineLexingSpecs;
+extern std::map<std::string, OptionSpec> cmdlineLexingSpecs;
 
 /* 
    regular definitions 

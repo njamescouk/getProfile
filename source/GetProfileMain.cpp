@@ -6,7 +6,6 @@
 char *progname = 0;
 char *szVersion = "1.0";
  
-extern std::map<std::string, OptionSpec> cmdlineLexingSpecs;
 void usage(FILE *fp);
 void version(FILE *fp);
 
@@ -63,7 +62,6 @@ int main (int argc, char * argv[])
     specs["h"] = OptionSpec(false, "this help");
     specs["v"] = OptionSpec(false, "version");
     CmdLineSpec cls(specs);
-    cmdlineLexingSpecs = specs;
 
     pcldebug = 0;
     CmdLineParser clp(argc, argv, cls);
@@ -92,7 +90,7 @@ int main (int argc, char * argv[])
     if (cmdline.numArguments() > 0)
     {
         inputFile = cmdline.getArgument(0);
-        fp = fopen(inputFile.c_str(), "rt");
+        fp = fopen(inputFile.c_str(), "rb");
         if (fp == 0)
         {
             perror(progname);
@@ -102,7 +100,7 @@ int main (int argc, char * argv[])
 
     PBitMap pbm;
     bool res = pbm.read(fp);
-    
+
     if (fp != stdin)
     {
         fclose(fp);

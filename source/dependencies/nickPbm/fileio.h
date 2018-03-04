@@ -10,6 +10,9 @@ Heavily hacked NickJ June 2016
 char
 pm_getc(FILE * const file);
 
+unsigned char
+pm_getrawbyte(FILE * const file);
+
 unsigned int
 pm_getuint(FILE * const file);
 

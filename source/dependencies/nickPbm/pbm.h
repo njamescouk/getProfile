@@ -20,14 +20,17 @@ class PBitMapRow;
 
 #define PBM_MAGIC1 'P'
 #define PBM_MAGIC2 '1'
+#define RPBM_MAGIC2 '4'
 #define PBM_FORMAT (PBM_MAGIC1 * 256 + PBM_MAGIC2)
+#define RPBM_FORMAT (PBM_MAGIC1 * 256 + RPBM_MAGIC2)
 #define PBM_TYPE PBM_FORMAT
 
 
 /* Macro for turning a format number into a type number. */
 
 #define PBM_FORMAT_TYPE(f) \
-  ((f) == PBM_FORMAT ? PBM_TYPE : -1)
+  ((f) == PBM_FORMAT || (f) == RPBM_FORMAT ? PBM_TYPE : -1)
+
 
 
 /* Declarations of routines. */
@@ -42,7 +45,7 @@ pbm_nextimage(FILE *file, int * const eofP);
 
 void pbm_readpbm(FILE* file, PBitMap *pBitMap);
 void pbm_readpbminit(FILE* file, int* colsP, int* rowsP, int* formatP);
-void pbm_readpbmrow(FILE* file, PBitMapRow& pr);
+void pbm_readpbmrow(FILE* file, PBitMapRow& pr, int format);
 
 void pbm_writepbm(FILE* const fileP, PBitMap *pBitMap);
 void pbm_writepbminit(FILE* const fileP, int const cols, int const rows);
@@ -51,6 +54,8 @@ void writePbmRowPlain(FILE * const fileP, PBitMapRow r);
 
 int 
 pm_readmagicnumber(FILE * const ifP);
+
+void pickTheBitsOutOfThis(unsigned char item, int validBits, int bitNdx, PBitMapRow& pr);
 
 #endif /*_PBM_H_*/
 

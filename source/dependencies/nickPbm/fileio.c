@@ -40,6 +40,21 @@ pm_getc(FILE * const fileP) {
 }
 
 
+/* This is useful for PBM files.  It used to be used for PGM and PPM files
+   too, since the sample size was always one byte.  Now, use pbm_getrawsample()
+   for PGM and PPM files.
+*/
+
+unsigned char
+pm_getrawbyte(FILE * const file) {
+    int iby;
+
+    iby = getc(file);
+    if (iby == EOF)
+        fprintf(stderr, "EOF / read error reading a one-byte sample");
+    return (unsigned char) iby;
+}
+
 
 unsigned int
 pm_getuint(FILE * const ifP) {

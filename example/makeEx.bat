@@ -1,2 +1,2 @@
-pngtopnm canProfile.png | pgmtopbm -plain > can.pbm
+pngtopnm canProfile.png > can.pbm
 pbmgetProfile can.pbm > can.csv

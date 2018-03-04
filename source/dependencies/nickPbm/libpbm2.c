@@ -14,6 +14,7 @@ Heavily hacked NickJ June 2014
 */
 
 #include <climits>
+#include "math.h"
 #include "fileio.h"
 #include "pbm.h"
 #include "PbmColour.h" 
@@ -87,8 +88,9 @@ pbm_readpbminit(FILE* const ifP, int*  const colsP, int*  const rowsP, int*  con
 {
     /* Check magic number. */
     *formatP = pm_readmagicnumber(ifP);
+    int fmtType = PBM_FORMAT_TYPE(*formatP);
 
-    switch (PBM_FORMAT_TYPE(*formatP))
+    switch (fmtType)
     {
     case PBM_TYPE:
         pbm_readpbminitrest(ifP, colsP, rowsP);
@@ -100,16 +102,45 @@ pbm_readpbminit(FILE* const ifP, int*  const colsP, int*  const rowsP, int*  con
     validateComputableSize(*colsP, *rowsP);
 }
 
-void pbm_readpbmrow(FILE* file, PBitMapRow& pr)
+void pbm_readpbmrow(FILE* file, PBitMapRow& pr, int format)
 {
-    int col;
-    for (col = 0; col < pr.getWidth(); ++col) 
+    switch ( format )
     {
-        PbmBW pixel;
-        pixel = getbit(file);
-        PbmColour pb;
-        pb.setBW(pixel);
-        pr[col] = pb; 
+        {
+        case PBM_FORMAT:
+            int col;
+            for (col = 0; col < pr.getWidth(); ++col) 
+            {
+                PbmBW pixel;
+                pixel = getbit(file);
+                PbmColour pb;
+                pb.setBW(pixel);
+                pr[col] = pb; 
+            }
+        }
+        break;
+
+        case RPBM_FORMAT: 
+        {
+            int numberOfBits = pr.getWidth();
+            int numberOfBytes = (int)ceil(numberOfBits/8.0);
+            unsigned char item;
+            int byteNdx;
+            for (byteNdx = 0; byteNdx < numberOfBytes; byteNdx++)
+            {
+                int bitNdx = byteNdx*8;
+                int validBits = 8;
+                if (byteNdx == numberOfBytes - 1)
+                {
+                    validBits = numberOfBits - bitNdx;
+                }
+
+                item = pm_getrawbyte(file);
+
+                pickTheBitsOutOfThis(item, validBits, bitNdx, pr);
+            }
+        }
+        break;
     }
 }
 
@@ -128,7 +159,7 @@ pbm_readpbm(FILE* file, PBitMap *pBitMap)
 
         int row;
         for (row = 0; row < pBitMap->getHeight(); ++row)
-            pbm_readpbmrow(file, pBitMap->getRowRef(row));
+            pbm_readpbmrow(file, pBitMap->getRowRef(row), format);
     }
 }
 
@@ -144,4 +175,20 @@ pm_readmagicnumber(FILE * const ifP) {
                   "means your input file is empty." );
 
     return ich1 * 256 + ich2;
+}
+
+void pickTheBitsOutOfThis(unsigned char item, int validBits, int bitNdx, PBitMapRow& pr)
+{
+    /* tempted to use a struct of 8 single bit-fields here :-) */
+    /* BUG we should ensure we're reading msb first */
+    int i;
+    for (i = 0; i < validBits; i++)
+    {
+        /* pick validBits bits off front of item, append them to pr */
+        unsigned char bitPos = 7 - i;
+        unsigned char shiftedItem = (item >> bitPos);
+        PbmColour colour = ((shiftedItem & 1)==0)?PBIT_WHITE:PBIT_BLACK;
+        int columnNumber = bitNdx + i;
+        pr[columnNumber] = colour;
+    }
 }

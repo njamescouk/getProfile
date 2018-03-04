@@ -36,6 +36,10 @@ public:
         return false;
     }
 
+    std::map<std::string, OptionSpec> getSpecs()
+    {       
+        return m_specs;
+    }
     OptionSpec getSpec(std::string name)
     {
         std::map<std::string, OptionSpec>::iterator it = m_specs.find(name);

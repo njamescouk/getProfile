@@ -8,7 +8,7 @@
 #include "pclYaccfns.h"
 
 extern Cmdline gPclResult;
-
+std::map<std::string, OptionSpec> cmdlineLexingSpecs;
 
 class CmdLineParser
 {
@@ -48,6 +48,7 @@ public:
         // pcldebug = 1;
         // -bbbb -x -c 8uggg 222 iuoiuoiu-66
         pclScanString(m_scanString.c_str());
+        cmdlineLexingSpecs = m_spec.getSpecs();
         if (pclparse() == 0)
         {
             res = gPclResult;
