@@ -90,7 +90,7 @@ int main (int argc, char * argv[])
     if (cmdline.numArguments() > 0)
     {
         inputFile = cmdline.getArgument(0);
-        fp = fopen(inputFile.c_str(), "rb");
+        fp = fopen(inputFile.c_str(), "rt");
         if (fp == 0)
         {
             perror(progname);
