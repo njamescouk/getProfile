@@ -1,0 +1,6 @@
+set path=C:\Windows\System32
+cd ..\example
+call runExample.bat
+cd ..\source
+call compile.bat
+rpal -i -t 10 ..\example\can.csv
